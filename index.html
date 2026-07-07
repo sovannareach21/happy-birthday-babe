@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday, Baby! 🎀</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;600&display=swap');
+        
+        body, button, p, h1, h2, h3, span {
+            font-family: 'Caveat', cursive;
+        }
+
+        .system-font {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* ផ្ទៃខាងក្រោយក្រឡាការ៉ូពណ៌ផ្កាឈូកទន់ */
+        body {
+            background-color: #fffafb;
+            background-image: 
+                linear-gradient(90deg, rgba(244, 143, 177, 0.25) 50%, transparent 50%),
+                linear-gradient(rgba(244, 143, 177, 0.25) 50%, transparent 50%);
+            background-size: 45px 45px;
+            overflow-x: hidden;
+        }
+
+        /* ស្រទាប់ក្រដាសសៀវភៅ */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 999;
+            background-image: url('https://www.transparenttextures.com/patterns/crinkled-paper.png');
+        }
+
+        /* គែមប្រអប់បែបគំនូរដៃហ្វឺត */
+        .sketch-box {
+            border: 3px solid #db2777;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            background: #ffffff;
+            box-shadow: 4px 4px 0px rgba(219, 39, 119, 0.15);
+        }
+
+        /* ប្រអប់សំបុត្រស្ទីលរូបថតគំរូ */
+        .sketch-card-blue {
+            border: 4px solid #db2777;
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: 5px 5px 0px rgba(219, 39, 119, 0.2);
+        }
+
+        .sketch-btn {
+            border: 3px solid #db2777;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            background: white;
+            transition: all 0.2s ease;
+            box-shadow: 3px 3px 0px rgba(219, 39, 119, 0.15);
+        }
+        .sketch-btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px rgba(219, 39, 119, 0.15);
+        }
+
+        /* ================= ចលនា ANIMATIONS ================= */
+        @keyframes gentleFadeUp {
+            0% { opacity: 0; transform: translateY(25px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .run-animation {
+            animation: gentleFadeUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+        }
+
+        @keyframes smoothSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .vinyl-spin {
+            animation: smoothSpin 8s linear infinite;
+        }
+        .paused {
+            animation-play-state: paused;
+        }
+
+        /* ស្ទីលរូបថត Polaroid */
+        .polaroid {
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 2px 4px 10px rgba(219, 39, 119, 0.1);
+        }
+        
+        /* ស្ទីលស្កុតបិទរូបថត */
+        .washi-tape {
+            background: rgba(244, 143, 177, 0.55);
+            backdrop-filter: blur(0.5px);
+            transform: rotate(-8deg);
+            border-left: 1.5px dashed rgba(255,255,255,0.4);
+            border-right: 1.5px dashed rgba(255,255,255,0.4);
+        }
+
+        /* ទង់ជ័យលម្អរខាងក្រោមរូបថត */
+        .bunting-flags span {
+            display: inline-block;
+            width: 0; height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 12px solid #f48fb1;
+            margin: 0 1px;
+        }
+        .bunting-flags span:nth-child(even) {
+            border-top-color: #db2777;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen px-4 py-6 select-none">
+<audio id="birthday-bg-music" loop>
+    <source src="image/HAPPY BIRTHDAY TO YOU  PIANO INSTRUMENTAL  BEST HAPPY BITHDAY MUSIC 2021 - Benote.mp3" type="audio/mp3">
+</audio>
+    <!-- ប្រអប់ផ្ទុកកណ្ដាលសម្រាប់ទូរស័ព្ទ -->
+    <div class="w-full max-w-sm relative flex flex-col justify-center items-center z-10 mx-auto">
+
+        <!-- ================= ទំព័រទី១៖ ប្រអប់កាដូបើក (COVER PAGE) ================= -->
+        <div id="page-1" class="page-content text-center space-y-6 w-full flex flex-col items-center run-animation">
+            <h1 class="text-5xl font-bold text-pink-600 drop-shadow-sm tracking-wide">Happy Birthday, baby!❤️</h1>
+            
+            <button onclick="startBirthdayMusic(); goToPage(2);" class="w-40 h-40 flex flex-col justify-center items-center transition-transform active:scale-95 relative group mt-4">
+                <div class="absolute inset-0 border-4 border-dashed border-pink-400 rounded-full bg-white/50"></div>
+                <i class="fa-solid fa-gift text-7xl text-pink-500 drop-shadow z-10 animate-bounce"></i>
+                <div class="absolute bottom-5 z-10"><i class="fa-solid fa-heart text-xs text-pink-400"></i></div>
+            </button>
+
+            <p class="text-3xl text-pink-500 font-bold tracking-wide pt-2">You have a surprise waiting for you</p>
+        </div>
+
+
+        <!-- ================= ទំព័រទី២៖ ម៉ឺនុយគ្រាប់កាតទាំង ៤ (MAIN MENU) ================= -->
+        <div id="page-2" class="page-content hidden text-center space-y-6 w-full flex flex-col items-center">
+            <div class="grid grid-cols-2 gap-4 w-full px-2">
+                <button onclick="goToPage(3)" class="sketch-btn p-3 flex flex-col items-center justify-center text-pink-600 h-28">
+                    <i class="fa-regular fa-image text-3xl mb-1"></i>
+                    <span class="text-xl font-bold tracking-wide">Album</span>
+                </button>
+                <button onclick="goToPage(4)" class="sketch-btn p-3 flex flex-col items-center justify-center text-pink-600 h-28">
+                    <i class="fa-solid fa-music text-3xl mb-1"></i>
+                    <span class="text-xl font-bold tracking-wide">Music</span>
+                </button>
+                <button onclick="goToPage(5)" class="sketch-btn p-3 flex flex-col items-center justify-center text-pink-600 h-28">
+                    <i class="fa-solid fa-heart-pulse text-3xl mb-1"></i>
+                    <span class="text-xl font-bold tracking-wide">Flowers</span>
+                </button>
+                <button onclick="goToPage(6)" class="sketch-btn p-3 flex flex-col items-center justify-center text-pink-600 h-28">
+                    <i class="fa-solid fa-cake-candles text-3xl mb-1"></i>
+                    <span class="text-xl font-bold tracking-wide">Cake</span>
+                </button>
+            </div>
+            <p class="text-3xl text-pink-500 font-bold pt-4 animate-pulse">Click one to proceed!</p>
+        </div>
+
+
+        <!-- ================= ទំព័រទី៣៖ ផ្ទាំងរូបថត (MEMORIES PAGE) - កែប្រែឱ្យឃើញរូបពេញច្បាស់ ================= -->
+        <div id="page-3" class="page-content hidden w-full relative min-h-[520px] pb-16 px-1">
+            <h2 class="text-4xl font-bold text-pink-600 text-center mb-6">Your cute album 📸</h2>
+            
+            <div class="w-full flex flex-col items-center gap-8 px-2">
+                <!-- រូបថតទី ១ -->
+                <div class="polaroid p-3 pb-4 bg-white w-72 rotate-[-2deg] relative flex flex-col items-center">
+                    <div class="absolute -top-3 left-12 w-16 h-3.5 washi-tape"></div>
+                    <div class="absolute -left-5 -top-4 text-pink-400 text-xl flex gap-1 animate-pulse">
+                        <i class="fa-solid fa-balloon"></i>
+                        <i class="fa-solid fa-balloon text-pink-300 text-sm mt-2"></i>
+                    </div>
+                    <!-- ប្រើ object-contain ដើម្បីបង្ហាញរូបថតពេញរាងដើមសន្លឹក -->
+                    <div class="w-full bg-pink-50/30 flex justify-center items-center overflow-hidden rounded-sm">
+                        <img src="image/IMG_1493.JPG" alt="Memory 1" class="max-h-60 w-auto object-contain">
+                    </div>
+                    <p class="text-center mt-3 text-xl text-pink-700 font-bold">You are so cute! ✨</p>
+                </div>
+
+                <!-- រូបថតទី ២ -->
+                <div class="polaroid p-3 pb-4 bg-white w-72 rotate-[3deg] relative mt-2 flex flex-col items-center">
+                    <div class="absolute -top-3 right-12 w-16 h-3.5 washi-tape" style="transform: rotate(5deg);"></div>
+                    <i class="fa-solid fa-hat-birthday absolute -top-5 -left-3 text-pink-400 text-2xl transform -rotate-12"></i>
+                    <div class="w-full bg-pink-50/30 flex justify-center items-center overflow-hidden rounded-sm">
+                        <img src="image/IMG_1499.JPG" alt="Memory 2" class="max-h-60 w-auto object-contain">
+                    </div>
+                    <p class="text-center mt-3 text-xl text-pink-700 font-bold">Your smile so beautiful! ❤️</p>
+                </div>
+
+                <!-- រូបថតទី ៣ -->
+                <div class="polaroid p-3 pb-4 bg-white w-72 rotate-[-1deg] relative mt-2 flex flex-col items-center">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-3.5 washi-tape"></div>
+                    <div class="absolute -right-4 top-1/2 text-pink-400 text-xl flex flex-col animate-bounce" style="animation-duration: 3s;">
+                        <i class="fa-solid fa-balloon text-pink-300"></i>
+                        <i class="fa-solid fa-balloon text-xs -mt-1 pl-1"></i>
+                    </div>
+                    <div class="w-full bg-pink-50/30 flex justify-center items-center overflow-hidden rounded-sm">
+                        <img src="image/IMG_1559.JPG" alt="Memory 3" class="max-h-60 w-auto object-contain">
+                    </div>
+                    <p class="text-center mt-3 text-xl text-pink-700 font-bold">You look absolutely beautiful. 🌸</p>
+                </div>
+            </div>
+
+            <div class="w-full flex justify-end mt-6 pr-2">
+                <button onclick="goToPage(2)" class="sketch-btn px-4 py-0.5 text-lg font-bold text-pink-600">
+                    <i class="fa-solid fa-reply mr-1"></i> Back
+                </button>
+            </div>
+        </div>
+
+
+        <!-- ================= ទំព័រទី៤៖ ម៉ាស៊ីនចាក់ចម្រៀង (MUSIC PAGE) ================= -->
+        <div id="page-4" class="page-content hidden w-full sketch-box p-4 flex flex-col items-center gap-4 relative">
+            
+            <!-- កន្លែងបង្ហាញវីដេអូផ្ទាល់ខ្លួនរបស់បង -->
+            <div class="w-full h-44 bg-black rounded-xl overflow-hidden border-2 border-pink-400 relative shadow-inner">
+                <video id="my-custom-video" class="w-full h-full object-cover" loop playsinline>
+                    <source src="image/IMG_1590.MP4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="w-full text-center space-y-1">
+                <h3 class="text-3xl font-bold text-pink-600 leading-tight">Our Special Video 🎵</h3>
+                <p class="text-base text-gray-500 system-font text-[13px]">Tap the record disk or play button to start video</p>
+            </div>
+
+            <!-- ថាសចម្រៀងវិល -->
+            <div id="vinyl-disc" class="w-32 h-32 bg-neutral-950 rounded-full border-4 border-pink-400 flex items-center justify-center vinyl-spin paused shadow-lg cursor-pointer" onclick="toggleCustomVideo()">
+                <div class="w-28 h-28 rounded-full border border-neutral-800 flex items-center justify-center">
+                    <div class="w-20 h-20 rounded-full border border-neutral-700 flex items-center justify-center">
+                        <div class="w-10 h-10 bg-pink-100 rounded-full border-4 border-neutral-900 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-pink-500 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ប៊ូតុងបញ្ជា Play / Pause -->
+            <div class="flex items-center justify-center gap-6 text-xl text-pink-500 pt-1">
+                <button class="active:scale-120"><i class="fa-regular fa-heart"></i></button>
+                <button onclick="toggleCustomVideo()" class="w-10 h-10 rounded-full bg-pink-50 border-2 border-pink-500 flex items-center justify-center shadow-md transition-transform active:scale-90">
+                    <div id="play-icon" class="pl-0.5 text-sm text-pink-600"><i class="fa-solid fa-play"></i></div>
+                </button>
+                <button class="active:scale-120"><i class="fa-regular fa-star"></i></button>
+            </div>
+
+            <button onclick="goToPage(2)" class="absolute -bottom-14 right-0 sketch-btn px-3 py-0.5 text-lg font-bold text-pink-600">
+                <i class="fa-solid fa-reply mr-1"></i> Back
+            </button>
+        </div>
+
+
+        <!-- ================= ទំព័រទី៥៖ ពាក្យជូនពរ (FLOWERS PAGE) ================= -->
+        <div id="page-5" class="page-content hidden w-full sketch-box p-4 flex flex-col items-center gap-4 relative">
+            <div class="w-full text-center flex flex-col items-center pb-1">
+                <i class="fa-solid fa-wand-magic-sparkles text-4xl text-pink-400 animate-pulse mb-1"></i>
+                <h3 class="text-3xl font-bold text-pink-600">Flowers for you!</h3>
+            </div>
+
+            <div class="space-y-2 w-full text-lg font-bold text-pink-700">
+                <div class="bg-pink-50/50 p-2 border-2 border-dashed border-pink-200 rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-seedling text-pink-400 text-xs shrink-0"></i> <span>you mean so much to me</span>
+                </div>
+                <div class="bg-pink-50/50 p-2 border-2 border-dashed border-pink-200 rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-seedling text-pink-400 text-xs shrink-0"></i> <span>life is sweeter with you</span>
+                </div>
+                <div class="bg-pink-50/50 p-2 border-2 border-dashed border-pink-200 rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-seedling text-pink-400 text-xs shrink-0"></i> <span>appreciate you always</span>
+                </div>
+                <div class="bg-pink-50/50 p-2 border-2 border-dashed border-pink-200 rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-seedling text-pink-400 text-xs shrink-0"></i> <span>forever grateful for you</span>
+                </div>
+                <div class="bg-pink-50/50 p-2 border-2 border-dashed border-pink-200 rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-seedling text-pink-400 text-xs shrink-0"></i> <span>i'm so lucky to have you</span>
+                </div>
+            </div>
+
+            <button onclick="goToPage(2)" class="absolute -bottom-14 right-0 sketch-btn px-3 py-0.5 text-lg font-bold text-pink-600">
+                <i class="fa-solid fa-reply mr-1"></i> Back
+            </button>
+        </div>
+
+
+        <!-- ================= ទំព័រទី៦៖ ផ្លុំទាន និងផ្ទាំងលិខិតលម្អ (CAKE & SCRAPBOOK LETTER) ================= -->
+        <div id="page-6" class="page-content hidden text-center space-y-6 w-full flex flex-col items-center">
+            
+            <div id="cake-container" class="space-y-4 flex flex-col items-center pt-6">
+                <button onclick="blowCandle()" class="w-36 h-36 flex flex-col justify-center items-center bg-white border-4 border-pink-400 rounded-full shadow-inner relative active:scale-95 transition-transform">
+                    <i id="cake-icon" class="fa-solid fa-cake-candles text-6xl text-pink-400"></i>
+                    <div id="flame-sparkle" class="absolute top-5 text-pink-300 text-lg animate-ping"><i class="fa-solid fa-star"></i></div>
+                </button>
+                <h2 class="text-3xl font-bold text-pink-600">Click to Blow your candle, my baby!</h2>
+            </div>
+
+            <div id="letter-box" class="hidden w-full flex flex-col items-center space-y-6 relative text-left pb-12">
+                <div class="text-center w-full">
+                    <h2 class="text-4xl font-bold text-pink-600 tracking-wide">happy birthday! my baby!</h2>
+                </div>
+
+                <!-- ផ្ទាំងរូបថតលើលិខិត - កែប្រែឱ្យឃើញពេញច្បាស់ដូចគ្នា -->
+                <div class="sketch-card-blue p-3 w-64 relative rotate-[-1deg] shadow-lg flex flex-col items-center">
+                    <div class="absolute -top-5 -left-4 text-neutral-600 text-4xl transform rotate-45 select-none opacity-90"><i class="fa-solid fa-paperclip"></i></div>
+                    <div class="absolute -top-3 -right-4 w-14 h-4 bg-pink-300/70 rotate-[35deg] border-l border-r border-dashed border-white"></div>
+                    <i class="fa-solid fa-hat-birthday absolute -top-6 left-1/2 -translate-x-1/2 text-pink-500 text-2xl transform rotate-6"></i>
+                    
+                    <div class="w-full bg-pink-50/30 flex justify-center items-center overflow-hidden border border-neutral-200 rounded-sm shadow-inner">
+                        <div class="w-full bg-pink-50/30 flex justify-center items-center overflow-hidden border border-neutral-200 rounded-sm shadow-inner">
+    <video class="max-h-48 w-auto object-contain" autoplay loop muted playsinline>
+        <source src="image/IMG_1571.MP4" type="video/mp4">
+        
+    </video>
+</div>
+                    </div>
+
+                    <div class="bunting-flags w-full flex justify-center mt-1">
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+
+                    <div class="absolute -left-10 top-1/3 text-pink-400 text-xl flex flex-col items-center">
+                        <i class="fa-solid fa-gift text-sm text-pink-500 mb-1"></i>
+                        <i class="fa-solid fa-face-smile-wink"></i>
+                    </div>
+                    <div class="absolute -right-8 bottom-4 text-pink-400 text-xl"><i class="fa-solid fa-birthday-cake text-base text-pink-300"></i></div>
+                </div>
+
+                <p class="text-xl font-bold text-pink-500 tracking-wide w-full text-center my-1">"may your day be as special as you are!"</p>
+
+                <div class="sketch-card-blue p-4 w-full relative shadow-md mt-2">
+                    <div class="absolute -top-5 -left-3 text-neutral-600 text-4xl transform rotate-45 select-none opacity-90"><i class="fa-solid fa-paperclip"></i></div>
+                    <div class="absolute -top-3 -right-2 w-14 h-4 bg-pink-300/70 rotate-[15deg] border-l border-r border-dashed border-white"></div>
+
+                    <h3 class="text-2xl font-bold text-pink-600 mb-1">Happy birthday, baby!</h3>
+                    <p class="text-lg text-pink-900 leading-snug">
+                        I hope your day is filled with love, laughter, and all your favorite little things. You deserve every bit of happiness coming your way babe. May this year bring you closer to your dreams and surround you with joy. I love you so much, and I’m grateful for every moment we share together. Happy birthday, my love! 🎉💖
+                    </p>
+                    
+                    <div class="absolute -right-2 -bottom-4 text-pink-400 text-xl flex gap-0.5">
+                        <i class="fa-solid fa-face-smile"></i>
+                        <i class="fa-solid fa-heart text-xs text-pink-300 mt-2"></i>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="goToPage(2)" class="absolute -bottom-14 right-0 sketch-btn px-3 py-0.5 text-lg font-bold text-pink-600">
+                <i class="fa-solid fa-reply mr-1"></i> Back
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ================= ផ្នែកបញ្ជាកូដ JAVASCRIPT ================= -->
+    <script>
+        function toggleCustomVideo() {
+            const video = document.getElementById('my-custom-video');
+            const vinylDisc = document.getElementById('vinyl-disc');
+            const playIcon = document.getElementById('play-icon');
+
+            if (video.paused) {
+                video.play();
+                vinylDisc.classList.remove('paused');
+                playIcon.innerHTML = '<i class="fa-solid fa-pause"></i>';
+            } else {
+                video.pause();
+                vinylDisc.classList.add('paused');
+                playIcon.innerHTML = '<i class="fa-solid fa-play"></i>';
+            }
+        }
+
+        function goToPage(pageNumber) {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('run-animation');
+            });
+            
+            const activePage = document.getElementById('page-' + pageNumber);
+            activePage.classList.remove('hidden');
+            
+            void activePage.offsetWidth; 
+            activePage.classList.add('run-animation');
+
+            if(pageNumber === 6) {
+                const cakeContainer = document.getElementById('cake-container');
+                cakeContainer.classList.remove('hidden');
+                void cakeContainer.offsetWidth;
+                cakeContainer.classList.add('run-animation');
+                
+                document.getElementById('letter-box').classList.add('hidden');
+                if(document.getElementById('flame-sparkle')) document.getElementById('flame-sparkle').classList.remove('hidden');
+            }
+        }
+
+        function blowCandle() {
+            if(document.getElementById('flame-sparkle')) document.getElementById('flame-sparkle').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('cake-container').classList.add('hidden');
+                const letterBox = document.getElementById('letter-box');
+                letterBox.classList.remove('hidden');
+                void letterBox.offsetWidth;
+                letterBox.classList.add('run-animation');
+            }, 400);
+        }
+        // បន្ថែមមុខងារនេះទៅក្នុងផ្នែក <script> ខាងក្រោមគេបង្អស់
+function startBirthdayMusic() {
+    const bgMusic = document.getElementById('birthday-bg-music');
+    if (bgMusic) {
+        bgMusic.volume = 0.2; // លេខ 0.2 គឺសំឡេងឮតិចៗត្រឹម 20% (បងអាចដំឡើងដល់ 0.3 ឬ 0.4 តាមចិត្ត)
+        
+        // បញ្ជាឱ្យលេងចម្រៀង
+        bgMusic.play().catch(error => {
+            console.log("Browser blocked autoplay, wait for user interaction.");
+        });
+    }
+}
+    </script>
+</body>
+</html>
